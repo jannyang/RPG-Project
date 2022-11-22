@@ -5,14 +5,12 @@ using UnityEngine.UI;
 
 public class Creature : MonoBehaviour
 {
-    public string creatureName;
-
     public int attack = 10;
-    public int hp = 10;
+    public int maxHP = 10;
     public int currentHP = 10;
     public int armor = 5;
-    public int level = 1;
-    public int moveSpeed = 1;
+
+    private bool isAlive = true;
 
     public const int KNOCK_BACK = 1;
 
@@ -24,8 +22,15 @@ public class Creature : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
+    protected virtual void MoveToTarget()
+    {
+
+    }
+
     protected virtual void ReceiveDamage(int damage)
     {
+        if (!isAlive)
+            return;
         currentHP -= damage;
 
         if (currentHP <= 0)

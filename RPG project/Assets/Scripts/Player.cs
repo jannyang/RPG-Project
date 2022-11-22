@@ -2,45 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AI_State
+{
+    None,
+    Normal
+}
+
 public class Player : Creature
 {
+    public AI_State aiState;
+    BaseAI AI;
+
     public int attackRange = 1;
+
     private Animator playerAnimator;
-    private bool isAlive = true;
-    private GameObject monsterObject;
+    
+
+    private NormalAI normalAi;
+
 
     protected override void Start()
     {
         base.Start();
         playerAnimator = GetComponent<Animator>();
-        monsterObject = GameObject.FindGameObjectWithTag("Enemy");
+        
+
+        switch (aiState)
+        {
+            case AI_State.None:
+                AI = null;
+                break;
+
+            case AI_State.Normal:
+                {
+                    AI = gameObject.AddComponent<NormalAI>();
+                }
+                break;
+        }
     }
     protected override void ReceiveDamage(int damage)
     {
-        if (!isAlive)
-            return;
         base.ReceiveDamage(damage);
     }
 
     private void Update()
     {
-        if (monsterObject)
-        {
-            MoveToTarget();
-
-            if (Mathf.Abs(monsterObject.transform.position.x - gameObject.transform.position.x) < attackRange)
-                Attack();
-        }
+        AI?.UpdateAI();
     }
 
-    private void MoveToTarget()
+    protected override void MoveToTarget()
     {
 
     }
 
-    private void Attack()
+    protected override void Death()
     {
-        playerAnimator.SetBool("Attack", true);
+        base.Death();
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
