@@ -37,13 +37,15 @@ public class Player : Creature
 
     private bool bAlive = true;
 
+    Movement movement;
+
 
     protected override void Start()
     {
         base.Start(); 
         playerAnimator = GetComponentInChildren<Animator>();
         monsterList = Enemy.GetAllEnemies();
-        
+        movement = GetComponent<Movement>();
 
         switch (aiState)
         {
@@ -72,6 +74,9 @@ public class Player : Creature
             if (monsterList != null)
             {
                 targetObject = FindCloseTarget(monsterList);
+                if (!targetObject)  // null
+                    return;
+
                 distance = CheckBetDistance(targetObject);
 
                 if (distance >= attackRange)
@@ -94,6 +99,9 @@ public class Player : Creature
 
     private GameObject FindCloseTarget(List<Enemy> monsterList)
     {
+        if (monsterList.Count <= 0)
+            return null;
+
         for (int i = 0; i < monsterList.Count; i++)
         {
             distance = Vector3.Distance(gameObject.transform.position, monsterList[i].transform.position);
@@ -130,7 +138,7 @@ public class Player : Creature
         Vector3 vDir = vDist.normalized;
         float fDist = vDist.magnitude;
         if (fDist > moveSpeed * Time.deltaTime)
-            transform.position += vDir * moveSpeed * Time.deltaTime;
+            movement.Move(vDir, moveSpeed);
         /*
         if (currentDistance < attackRange)
             playerAnimator.SetInteger("state", 0);*/

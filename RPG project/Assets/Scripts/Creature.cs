@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Movement))]
 public class Creature : MonoBehaviour
 {
     public int damage = 10;
