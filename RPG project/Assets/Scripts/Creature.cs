@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Creature : MonoBehaviour
 {
-    public int attack = 10;
+    public int damage = 10;
     public int maxHP = 10;
     public int currentHP = 10;
     public int armor = 5;
@@ -17,6 +17,9 @@ public class Creature : MonoBehaviour
     private Vector3 knockBackDirection;
     private BoxCollider2D boxCollider;
 
+    protected float immuneTime = 0.5f;
+    protected float lastImmune;
+
     protected virtual void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -27,12 +30,17 @@ public class Creature : MonoBehaviour
 
     }
 
-    protected virtual void ReceiveDamage(int damage)
+    protected virtual void ReceiveDamage()
     {
         if (!isAlive)
             return;
-        currentHP -= damage;
-
+        if(Time.time > lastImmune + immuneTime)
+        {
+            lastImmune = Time.time;
+            Debug.Log("Damaged");
+            currentHP--;
+        }
+        
         if (currentHP <= 0)
         {
             currentHP = 0;

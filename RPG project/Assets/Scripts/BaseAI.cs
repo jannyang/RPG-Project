@@ -5,8 +5,8 @@ using UnityEngine;
 public enum eStateType
 {
     Idle,
-    Attack,
     Move,
+    Attack,
     Die,
 }
 

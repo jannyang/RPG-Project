@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class NormalAI : BaseAI
 {
-    protected List<GameObject> monsterList;
-
-    public float moveSpeed = 0.1f;
 
     private float minDistance;
     private float distance;
@@ -14,14 +11,12 @@ public class NormalAI : BaseAI
 
     protected override IEnumerator Idle()
     {
-        monsterList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
-        GameObject targetObject = FindCloseTarget(monsterList);
 
         float distance = 0f;
-        distance = Vector3.Distance(gameObject.transform.position, targetObject.transform.position);
+
         // 내 공격범위 안에 있으면 공격
         // 아니면 이동
-        
+        GameObject targetObject = null;
         
         // 근거리 적 색적
 
@@ -45,12 +40,8 @@ public class NormalAI : BaseAI
 
     protected override IEnumerator Move()
     {
-        monsterList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
-        GameObject targetObject = FindCloseTarget(monsterList);
-
-       
         float distance = 0f;
-        
+        GameObject targetObject = null;
 
         if (targetObject != null)
         {
@@ -63,11 +54,7 @@ public class NormalAI : BaseAI
             }
             else
             {
-                Vector3 vDist = monsterList[targetIdx].transform.position - gameObject.transform.position;
-                Vector3 vDir = vDist.normalized;
-                float fDist = vDist.magnitude;
-                if (fDist > moveSpeed * Time.deltaTime)
-                    transform.position += vDir * moveSpeed * Time.deltaTime;
+               
                 // 타겟으로 이동
             }
         }
@@ -95,19 +82,5 @@ public class NormalAI : BaseAI
     protected override IEnumerator Die()
     {
         yield return StartCoroutine(base.Die());
-    }
-
-    private GameObject FindCloseTarget(List<GameObject> monsterList)
-    {
-        for (int i = 0; i < monsterList.Count; i++)
-        {
-            distance = Vector3.Distance(gameObject.transform.position, monsterList[i].transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                targetIdx = i;
-            }
-        }
-        return monsterList[targetIdx];
     }
 }

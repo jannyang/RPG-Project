@@ -48,3 +48,6 @@ TagManager:
   - name: Creature
     uniqueID: 986185169
     locked: 0
+  - name: Object
+    uniqueID: 1288100765
+    locked: 0

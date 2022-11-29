@@ -9,9 +9,6 @@ public class GameManager : Singleton<GameManager>
     private int playerGold;
     private int stage = 1;
 
-    private List<GameObject> monsterList;
-
-
     private void Awake()
     {
         if (GameManager._instance != null)
@@ -22,14 +19,11 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        monsterList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+        
     }
 
     private void StageMangager()
     {
-        if(monsterList.Count == 0)
-        {
-            stage++;
-        }
+        
     }
 }
