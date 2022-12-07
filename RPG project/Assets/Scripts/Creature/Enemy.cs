@@ -32,7 +32,7 @@ public class Enemy : Creature
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
         targetPosition = playerObject.transform.position;
-        movement.Move(targetPosition, gameObject.transform.position, moveSpeed);
+        // movement.Move(targetPosition, gameObject.transform.position, moveSpeed);
     }
 
     protected override void Death()

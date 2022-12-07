@@ -37,7 +37,9 @@ public class Player : Creature
 
     //public bool bAlive = true;
 
-    Movement movement;
+    MovementEvent _movementEvent;
+    public MovementEvent MovementEvent { get { return _movementEvent; } }
+
     Weapon weapon;
 
 
@@ -46,7 +48,7 @@ public class Player : Creature
         base.Start(); 
         playerAnimator = GetComponentInChildren<Animator>();
         monsterList = Enemy.GetAllEnemies();
-        movement = GetComponent<Movement>();
+        _movementEvent = GetComponent<MovementEvent>();
         weapon = GetComponentInChildren<Weapon>();
 
         switch (aiState)
@@ -132,7 +134,7 @@ public class Player : Creature
 
         FlipCheck();
 
-        movement.Move(targetObject.transform.position, gameObject.transform.position, moveSpeed);
+        // movement.Move(targetObject.transform.position, gameObject.transform.position, moveSpeed);
     }
 
     protected override void Death()
