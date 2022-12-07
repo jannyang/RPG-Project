@@ -5,8 +5,12 @@ using UnityEngine;
 public class Enemy : Creature
 {
     public int exp;
-
+    public float moveSpeed = 0.5f;
     private static List<Enemy> enemies = new List<Enemy>();
+    private GameObject playerObject;
+    private Vector3 targetPosition;
+
+    Movement movement;
 
     public static List<Enemy> GetAllEnemies()
     {
@@ -16,6 +20,19 @@ public class Enemy : Creature
     private void Awake()
     {
         Enemy.enemies.Add(this);
+    }
+
+    protected override void Start()
+    {
+        playerObject = GetComponent<GameObject>();
+        
+    }
+
+    private void Update()
+    {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        targetPosition = playerObject.transform.position;
+        movement.Move(targetPosition, gameObject.transform.position, moveSpeed);
     }
 
     protected override void Death()

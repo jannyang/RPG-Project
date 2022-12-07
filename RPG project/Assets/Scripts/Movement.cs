@@ -18,8 +18,12 @@ public class Movement : MonoBehaviour
         set { owner = value; }
     }
 
-    public void Move(Vector3 dir, float speed)
+    public void Move(Vector3 targetPosition, Vector3 thisPosition, float speed)
     {
-        owner.transform.position += dir * speed * Time.deltaTime;
+        Vector3 vDist = targetPosition - thisPosition;
+        Vector3 vDir = vDist.normalized;
+        float fDist = vDist.magnitude;
+        if (fDist > speed * Time.deltaTime)
+            owner.transform.position += vDir * speed * Time.deltaTime;
     }
 }

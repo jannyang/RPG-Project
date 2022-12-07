@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private int playerLevel = 1;
-    private int playerExp;
-    private int playerGold;
-    private int stage = 1;
+    public int playerLevel = 1;
+    public int playerExp;
+    public int playerGold;
+    public int stage = 1;
 
+    private List<Enemy> monsterList;
     private void Awake()
     {
         if (GameManager._instance != null)
@@ -22,6 +23,14 @@ public class GameManager : Singleton<GameManager>
         
     }
 
+    private void Update()
+    {
+        monsterList = Enemy.GetAllEnemies();
+        if(monsterList == null)
+        {
+            Debug.Log("Stage Clear");
+        }
+    }
     private void StageMangager()
     {
         

@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
     private BoxCollider2D boxCollider;
     private SpriteRenderer spriteRenderer;
 
+    protected bool attackSign = false;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -25,6 +27,11 @@ public class Weapon : MonoBehaviour
             collision.gameObject.SendMessage("ReceiveDamage");
         }
     }*/
+
+    public void SetCollider()
+    {
+        boxCollider.enabled = true;
+    }    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

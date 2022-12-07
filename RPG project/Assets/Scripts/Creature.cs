@@ -11,19 +11,19 @@ public class Creature : MonoBehaviour
     public int currentHP = 10;
     public int armor = 5;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     public const int KNOCK_BACK = 1;
 
-    private Vector3 knockBackDirection;
-    private BoxCollider2D boxCollider;
 
     protected float immuneTime = 0.5f;
     protected float lastImmune;
 
+   
+
     protected virtual void Start()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
+        
     }
 
     protected virtual void MoveToTarget()
@@ -38,7 +38,7 @@ public class Creature : MonoBehaviour
         if(Time.time > lastImmune + immuneTime)
         {
             lastImmune = Time.time;
-            Debug.Log("Damaged");
+            //Debug.Log("Damaged");
             currentHP--;
         }
         

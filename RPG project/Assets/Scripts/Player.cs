@@ -35,9 +35,10 @@ public class Player : Creature
 
     private int targetIdx;
 
-    private bool bAlive = true;
+    //public bool bAlive = true;
 
     Movement movement;
+    Weapon weapon;
 
 
     protected override void Start()
@@ -46,6 +47,7 @@ public class Player : Creature
         playerAnimator = GetComponentInChildren<Animator>();
         monsterList = Enemy.GetAllEnemies();
         movement = GetComponent<Movement>();
+        weapon = GetComponentInChildren<Weapon>();
 
         switch (aiState)
         {
@@ -69,9 +71,9 @@ public class Player : Creature
     {
         //AI.UpdateAI();
 
-        if (bAlive)
+        if (isAlive)
         {
-            if (monsterList != null)
+            if (monsterList.Count > 0)
             {
                 targetObject = FindCloseTarget(monsterList);
                 if (!targetObject)  // null
@@ -91,7 +93,10 @@ public class Player : Creature
             }
 
             else
+            {
                 playerAnimator.SetInteger("state", (int)Player_State.Idle);
+                //GameManager.instance.stage += 1;
+            }
         }
         
 
@@ -123,25 +128,11 @@ public class Player : Creature
 
     protected override void MoveToTarget()
     {
-        float currentDistance = 0f;
-        currentDistance = Vector3.Distance(gameObject.transform.position, targetObject.transform.position);
-
         playerAnimator.SetInteger("state", (int)Player_State.Walk);
-        Vector3 vDist = targetObject.transform.position - gameObject.transform.position;
-        float xDist = targetObject.transform.position.x - gameObject.transform.position.x;
 
-        if (xDist < 0)
-            gameObject.transform.localScale = new Vector3(-1, 1, 1);
-        else
-            gameObject.transform.localScale = new Vector3(1, 1, 1);
+        FlipCheck();
 
-        Vector3 vDir = vDist.normalized;
-        float fDist = vDist.magnitude;
-        if (fDist > moveSpeed * Time.deltaTime)
-            movement.Move(vDir, moveSpeed);
-        /*
-        if (currentDistance < attackRange)
-            playerAnimator.SetInteger("state", 0);*/
+        movement.Move(targetObject.transform.position, gameObject.transform.position, moveSpeed);
     }
 
     protected override void Death()
@@ -150,14 +141,22 @@ public class Player : Creature
         
     }
 
-    private void Attack()
+    private void FlipCheck()
     {
-        playerAnimator.SetInteger("state", (int)Player_State.Attack);
         float xDist = targetObject.transform.position.x - gameObject.transform.position.x;
+
         if (xDist < 0)
             gameObject.transform.localScale = new Vector3(-1, 1, 1);
         else
             gameObject.transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    private void Attack()
+    {
+        playerAnimator.SetInteger("state", (int)Player_State.Attack);
+        FlipCheck();
+        weapon.SetCollider();
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
