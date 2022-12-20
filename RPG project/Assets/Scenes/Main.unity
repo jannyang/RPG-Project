@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 953945725}
   - component: {fileID: 953945724}
   m_Layer: 0
-  m_Name: _Idle_0
+  m_Name: Modeling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,6 +631,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 276425240594777178, guid: b919e3d01f1ef9041a8d83d139d58491, type: 3}
+      propertyPath: m_Name
+      value: Modeling
+      objectReference: {fileID: 0}
     - target: {fileID: 276425241850778675, guid: b919e3d01f1ef9041a8d83d139d58491, type: 3}
       propertyPath: maxHP
       value: 5
