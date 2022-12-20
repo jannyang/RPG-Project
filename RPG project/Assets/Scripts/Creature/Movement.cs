@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(MovementEvent))]
 
+[RequireComponent(typeof(MovementEvent))]
+[RequireComponent(typeof(Rigidbody2D))]
+[DisallowMultipleComponent]
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rigidbody2D;
@@ -18,24 +19,21 @@ public class Movement : MonoBehaviour
 
     private void OnEnable()
     {
-        movementEvent.onMovement += MovementEvent_OnMovement;
+        movementEvent.OnMovement += MovementEvent_OnMovement;    
     }
 
     private void OnDisable()
     {
-        movementEvent.onMovement -= MovementEvent_OnMovement;
+        movementEvent.OnMovement -= MovementEvent_OnMovement;
     }
 
     private void MovementEvent_OnMovement(MovementEvent movementEvent, MovementArgs movementArgs)
     {
-        MoveRigidBody(movementArgs.moveDirection, movementArgs.moveSpeed);
+        MoveRigidbody(movementArgs.moveDirection, movementArgs.moveSpeed);
     }
 
-    private void MoveRigidBody(Vector2 moveDirection, float moveSpeed)
+    private void MoveRigidbody(Vector2 moveDirection, float moveSpeed)
     {
         rigidbody2D.velocity = moveDirection * moveSpeed;
     }
-
-
-
 }

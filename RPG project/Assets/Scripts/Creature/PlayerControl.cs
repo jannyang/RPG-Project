@@ -8,7 +8,7 @@ public class PlayerControl : MonoBehaviour
 {
 
     Player player;
-
+    private IdleEvent idleEvent;
     float moveSpeed = 5;
 
     void Awake()
@@ -31,6 +31,11 @@ public class PlayerControl : MonoBehaviour
         if (direction != Vector2.zero)
         {
             player.MovementEvent.CallMovementEvent(direction, moveSpeed);
+        }
+
+        else
+        {
+            player.idleEvent.CallIdleEvent();
         }
     }
 }

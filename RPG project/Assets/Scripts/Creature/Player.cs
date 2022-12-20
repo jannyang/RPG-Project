@@ -23,7 +23,7 @@ public class Player : Creature
     public float attackRange = 1.5f;
     public float moveSpeed = 1.0f;
 
-    private Animator playerAnimator;
+    public Animator playerAnimator;
     
     private NormalAI normalAi;
 
@@ -40,6 +40,11 @@ public class Player : Creature
     MovementEvent _movementEvent;
     public MovementEvent MovementEvent { get { return _movementEvent; } }
 
+    public IdleEvent idleEvent;
+
+    
+
+
     Weapon weapon;
 
 
@@ -49,7 +54,8 @@ public class Player : Creature
         playerAnimator = GetComponentInChildren<Animator>();
         monsterList = Enemy.GetAllEnemies();
         _movementEvent = GetComponent<MovementEvent>();
-        weapon = GetComponentInChildren<Weapon>();
+        idleEvent = GetComponent<IdleEvent>();
+        //weapon = GetComponentInChildren<Weapon>();
 
         switch (aiState)
         {
@@ -68,11 +74,11 @@ public class Player : Creature
     {
         base.ReceiveDamage();
     }
-
+    
     private void Update()
     {
-        //AI.UpdateAI();
-
+        //AI?.UpdateAI();
+        /*
         if (isAlive)
         {
             if (monsterList.Count > 0)
@@ -100,7 +106,7 @@ public class Player : Creature
                 //GameManager.instance.stage += 1;
             }
         }
-        
+        */
 
     }
 
