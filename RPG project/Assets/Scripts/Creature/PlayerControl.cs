@@ -18,7 +18,20 @@ public class PlayerControl : MonoBehaviour
     void Awake()
     {
         player = GetComponent<Player>();
+
     }
+
+    private void OnEnable()
+    {
+        movement.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        movement.action.Disable();
+    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -34,7 +47,8 @@ public class PlayerControl : MonoBehaviour
         //Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
 
         Vector2 direction = movement.action.ReadValue<Vector2>();
-        Debug.Log(direction);
+
+        // Debug.Log(direction);
         if (direction != Vector2.zero)
         {
             player.MovementEvent.CallMovementEvent(direction, moveSpeed);

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,13 +17,13 @@ public enum Player_State
 public class Player : Creature
 {
     public AI_State aiState;
-    BaseAI AI;
+    private BaseAI AI;
 
     public float attackRange = 1.5f;
     public float moveSpeed = 1.0f;
 
     public Animator playerAnimator;
-    
+
     private NormalAI normalAi;
 
     protected List<Enemy> monsterList;
@@ -37,25 +36,22 @@ public class Player : Creature
 
     //public bool bAlive = true;
 
-    MovementEvent _movementEvent;
-    public MovementEvent MovementEvent { get { return _movementEvent; } }
+    private MovementEvent _movementEvent;
+    public MovementEvent MovementEvent
+    { get { return _movementEvent; } }
 
     public IdleEvent idleEvent;
 
-    
+    private Weapon weapon;
 
-
-    Weapon weapon;
-
-
-    protected override void Start()
+    private void Awake()
     {
-        base.Start(); 
-        playerAnimator = GetComponentInChildren<Animator>();
-        monsterList = Enemy.GetAllEnemies();
         _movementEvent = GetComponent<MovementEvent>();
+        playerAnimator = GetComponentInChildren<Animator>();
         idleEvent = GetComponent<IdleEvent>();
         //weapon = GetComponentInChildren<Weapon>();
+
+        monsterList = Enemy.GetAllEnemies();
 
         switch (aiState)
         {
@@ -70,13 +66,40 @@ public class Player : Creature
                 break;
         }
     }
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     protected override void ReceiveDamage()
     {
         base.ReceiveDamage();
     }
-    
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawCube(this.transform.position + Vector3.right, Vector2.one);
+    //}
+
     private void Update()
     {
+        // raycast
+         Vector3 pos = this.transform.position;
+        //RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.right);
+
+        //if (hit)
+        //{
+        //    Debug.Log(hit.transform.name);
+        //}
+
+        //RaycastHit2D[] hit2Ds = Physics2D.BoxCastAll(pos + Vector3.right, Vector2.one, 0, Vector2.zero);
+
+        //foreach(RaycastHit2D hit in hit2Ds)
+        //{
+        //    Debug.Log(hit.transform.name);
+        //}
+                
         //AI?.UpdateAI();
         /*
         if (isAlive)
@@ -91,23 +114,20 @@ public class Player : Creature
 
                 if (distance >= attackRange)
                     MoveToTarget();
-
-
                 else if (distance < attackRange)
                 {
                     //Debug.Log("Attack");
                     Attack();
                 }
             }
-
             else
             {
                 playerAnimator.SetInteger("state", (int)Player_State.Idle);
                 //GameManager.instance.stage += 1;
             }
+
         }
         */
-
     }
 
     private GameObject FindCloseTarget(List<Enemy> monsterList)
@@ -146,7 +166,6 @@ public class Player : Creature
     protected override void Death()
     {
         base.Death();
-        
     }
 
     private void FlipCheck()
@@ -164,13 +183,9 @@ public class Player : Creature
         playerAnimator.SetInteger("state", (int)Player_State.Attack);
         FlipCheck();
         weapon.SetCollider();
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
     }
-
-
 }
