@@ -1,14 +1,14 @@
 {
-    "name": "Input",
+    "name": "PlayerInputAction",
     "maps": [
         {
             "name": "PlayerInput",
-            "id": "d88e0402-f3d6-4355-9921-29d2375b2fb0",
+            "id": "373deeb6-0011-484d-892d-84ac864433e6",
             "actions": [
                 {
                     "name": "Movement",
                     "type": "Value",
-                    "id": "34671d87-7812-450b-9d65-390804e4e375",
+                    "id": "2b489849-9983-4f2a-a505-b8f8017f2238",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -17,7 +17,7 @@
                 {
                     "name": "PointerPosition",
                     "type": "Value",
-                    "id": "bcdf17dc-8432-4f56-8af9-cc1b8550081a",
+                    "id": "88bd9a53-e5d7-4449-a268-e5cbbe881eef",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -26,7 +26,7 @@
                 {
                     "name": "Attack",
                     "type": "Button",
-                    "id": "a70d4bf8-b094-42b3-9138-18ccfdc9cf6f",
+                    "id": "8cfd4fd2-70ef-4be8-ad72-7db2867aadc8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -36,7 +36,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "da389f18-4f0c-4afb-87dd-3c40a7f49042",
+                    "id": "20982446-ac60-4f6a-b414-bb597367f0fd",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
@@ -47,7 +47,7 @@
                 },
                 {
                     "name": "",
-                    "id": "cdafb8bf-df5f-4ab7-8da0-a3ff8de0a3b6",
+                    "id": "2497cdda-79be-4052-bbef-032b64dc4374",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -58,7 +58,7 @@
                 },
                 {
                     "name": "WASD",
-                    "id": "f9717c3a-f47f-476d-87c0-26ecc4c82081",
+                    "id": "0653e039-e63a-4c85-bf66-bbf48933b7fb",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -69,7 +69,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "f9cbdea0-0970-4ceb-9a29-377e6493795e",
+                    "id": "b7a4e2a1-c5c8-486d-9467-2aa1aeebbeb8",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -80,7 +80,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "3666cf02-9e3e-49f8-a6e6-d29731fb933a",
+                    "id": "d15756c8-0d34-4eb1-9d5b-cf763cdbd6a7",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -91,7 +91,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "616c8fe8-f9d1-440b-9c23-fd57b53538ee",
+                    "id": "abf8c004-478b-4d44-a77f-bd3618bf6b16",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -102,7 +102,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "bc47a19e-7f37-495f-be05-2cac5760e055",
+                    "id": "f20d3dc5-1cca-4dbf-b07e-c9bea489e5b8",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -116,11 +116,16 @@
     ],
     "controlSchemes": [
         {
-            "name": "keyboard",
-            "bindingGroup": "keyboard",
+            "name": "Keyboard & Mouse",
+            "bindingGroup": "Keyboard & Mouse",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

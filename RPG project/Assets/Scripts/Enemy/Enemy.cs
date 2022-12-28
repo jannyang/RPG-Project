@@ -10,15 +10,14 @@ public class Enemy : Creature
     private GameObject playerObject;
     private Vector3 targetPosition;
 
-    Movement movement;
-
     public static List<Enemy> GetAllEnemies()
     {
         return Enemy.enemies;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Enemy.enemies.Add(this);
     }
 

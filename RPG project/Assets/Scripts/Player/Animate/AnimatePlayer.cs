@@ -15,13 +15,13 @@ public class AnimatePlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        player.MovementEvent.OnMovement += MovementEvent_OnMovement;
+        player.movementByVelocityEvent.OnMovementByVelocity += MovementEvent_OnMovement;
         player.idleEvent.OnIdle += IdleEvent_OnIdle;
     }
 
     private void OnDisable()
     {
-        player.MovementEvent.OnMovement -= MovementEvent_OnMovement;
+        player.movementByVelocityEvent.OnMovementByVelocity -= MovementEvent_OnMovement;
         player.idleEvent.OnIdle -= IdleEvent_OnIdle;
     }
 
@@ -30,9 +30,10 @@ public class AnimatePlayer : MonoBehaviour
         SetIdleAnimationParameters();
     }
 
-    private void MovementEvent_OnMovement(MovementEvent movementEvent, MovementArgs movementArgs)
+    private void MovementEvent_OnMovement(MovementByVelocityEvent movementEvent, MovementByVelocityArgs movementArgs)
     {
         SetMovementAnimationParameters();
+        SetSpriteFlip(movementArgs);
     }
 
     private void SetIdleAnimationParameters()
@@ -45,5 +46,13 @@ public class AnimatePlayer : MonoBehaviour
     {
         player.playerAnimator.SetBool(Settings.isMoving, true);
         player.playerAnimator.SetBool(Settings.isIdle, false);
+    }
+
+    private void SetSpriteFlip(MovementByVelocityArgs movementArgs)
+    {
+        if(movementArgs.moveDirection.x < 0)
+            player.spriteRenderer.flipX = true;
+        else
+            player.spriteRenderer.flipX = false;
     }
 }

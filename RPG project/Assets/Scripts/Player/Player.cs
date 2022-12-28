@@ -1,70 +1,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AI_State
-{
-    None,
-    Normal
-}
-
-public enum Player_State
-{
-    Idle,
-    Walk,
-    Attack
-}
-
 public class Player : Creature
 {
-    public AI_State aiState;
-    private BaseAI AI;
-
     public float attackRange = 1.5f;
     public float moveSpeed = 1.0f;
 
-    public Animator playerAnimator;
+    [HideInInspector] public Animator playerAnimator;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
 
-    private NormalAI normalAi;
+    [HideInInspector] public PlayerControl playerControl;
+
+    [HideInInspector] public IdleEvent idleEvent;
+
+
+
+
 
     protected List<Enemy> monsterList;
 
     private GameObject targetObject;
     private float minDistance;
     private float distance;
-
     private int targetIdx;
-
-    //public bool bAlive = true;
-
-    private MovementEvent _movementEvent;
-    public MovementEvent MovementEvent
-    { get { return _movementEvent; } }
-
-    public IdleEvent idleEvent;
-
     private Weapon weapon;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _movementEvent = GetComponent<MovementEvent>();
+        base.Awake();
+
         playerAnimator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        playerControl = GetComponent<PlayerControl>();
+
         idleEvent = GetComponent<IdleEvent>();
         //weapon = GetComponentInChildren<Weapon>();
 
         monsterList = Enemy.GetAllEnemies();
 
-        switch (aiState)
-        {
-            case AI_State.None:
-                AI = null;
-                break;
-
-            case AI_State.Normal:
-                {
-                    AI = gameObject.AddComponent<NormalAI>();
-                }
-                break;
-        }
     }
 
     protected override void Start()
@@ -156,9 +130,9 @@ public class Player : Creature
 
     protected override void MoveToTarget()
     {
-        playerAnimator.SetInteger("state", (int)Player_State.Walk);
+        //playerAnimator.SetInteger("state", (int)Player_State.Walk);
 
-        FlipCheck();
+        //FlipCheck();
 
         // movement.Move(targetObject.transform.position, gameObject.transform.position, moveSpeed);
     }
@@ -180,9 +154,9 @@ public class Player : Creature
 
     private void Attack()
     {
-        playerAnimator.SetInteger("state", (int)Player_State.Attack);
-        FlipCheck();
-        weapon.SetCollider();
+        //playerAnimator.SetInteger("state", (int)Player_State.Attack);
+        //FlipCheck();
+        //weapon.SetCollider();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

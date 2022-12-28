@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(MovementEvent))]
+[RequireComponent(typeof(MovementByVelocityEvent))]
 [RequireComponent(typeof(Rigidbody2D))]
 [DisallowMultipleComponent]
-public class Movement : MonoBehaviour
+public class MovementByVelocity : MonoBehaviour
 {
     private Rigidbody2D rigidbody2d;
-    private MovementEvent movementEvent;
+    private MovementByVelocityEvent movementByVelocityEvent;
 
     private void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-        movementEvent = GetComponent<MovementEvent>();
+        movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
     }
 
     private void OnEnable()
     {
-        movementEvent.OnMovement += MovementEvent_OnMovement;    
+        movementByVelocityEvent.OnMovementByVelocity += MovementEvent_OnMovement;    
     }
 
     private void OnDisable()
     {
-        movementEvent.OnMovement -= MovementEvent_OnMovement;
+        movementByVelocityEvent.OnMovementByVelocity -= MovementEvent_OnMovement;
     }
 
-    private void MovementEvent_OnMovement(MovementEvent movementEvent, MovementArgs movementArgs)
+    private void MovementEvent_OnMovement(MovementByVelocityEvent movementEvent, MovementByVelocityArgs movementArgs)
     {
         MoveRigidbody(movementArgs.moveDirection, movementArgs.moveSpeed);
     }

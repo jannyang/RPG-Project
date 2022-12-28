@@ -5,33 +5,20 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Player))]
 [DisallowMultipleComponent]     // 한 오브젝트에 하나만 달리게
+
 public class PlayerControl : MonoBehaviour
 {
-    
     Player player;
-    private IdleEvent idleEvent;
     float moveSpeed = 5;
 
     [SerializeField]
-    private InputActionReference movement;
+    private InputActionReference movement, pointerPosition, attack;
 
     void Awake()
     {
         player = GetComponent<Player>();
 
     }
-
-    private void OnEnable()
-    {
-        movement.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        movement.action.Disable();
-    }
-
-
 
     // Update is called once per frame
     void Update()
@@ -51,7 +38,7 @@ public class PlayerControl : MonoBehaviour
         // Debug.Log(direction);
         if (direction != Vector2.zero)
         {
-            player.MovementEvent.CallMovementEvent(direction, moveSpeed);
+            player.movementByVelocityEvent.CallMovementEvent(direction, moveSpeed);
         }
 
         else
